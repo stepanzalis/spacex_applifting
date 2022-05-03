@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.main.base.navigation
+package cz.stepanzalis.spacexlifts.ui.base.navigation
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController

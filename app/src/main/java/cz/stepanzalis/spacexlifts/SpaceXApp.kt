@@ -18,10 +18,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import cz.stepanzalis.spacexlifts.io.utils.WindowSize
-import cz.stepanzalis.spacexlifts.ui.main.base.AppDrawer
-import cz.stepanzalis.spacexlifts.ui.main.base.navigation.SpaceXNavGraph
-import cz.stepanzalis.spacexlifts.ui.main.base.navigation.SpaceXNavigation
-import cz.stepanzalis.spacexlifts.ui.main.base.navigation.SpaceXNavigationAction
+import cz.stepanzalis.spacexlifts.ui.base.AppDrawer
+import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavGraph
+import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigation
+import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigationAction
 import cz.stepanzalis.spacexlifts.ui.theme.LiftingBlack
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
 import kotlinx.coroutines.launch

@@ -18,5 +18,8 @@ class App : Application() {
             androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.NONE)
             modules(appModules)
         }
+
+        AppDebugToolsConfig.initDebugTools(this)
+
     }
 }

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "cz.stepanzalis.spacexlifts.io.models";
+option java_multiple_files = true;
+
+message CompanyInfo {
+  string name = 1;
+  string address = 2;
+  string city = 3;
+  string founder = 4;
+  int32 founded = 5;
+  string ceo = 6;
+  string cto = 7;
+  string ctoPropulsion = 8;
+  int64 valuation = 9;
+  string summary = 10;
+}

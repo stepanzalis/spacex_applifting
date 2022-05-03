@@ -32,7 +32,7 @@ data class CompanyInfoResponse(
     @Json(name = "cto_propulsion")
     val ctoPropulsion: String,
     @Json(name = "valuation")
-    val valuation: Int,
+    val valuation: Long, // when valuation is too big that int is not enough 😱
     @Json(name = "summary")
     val summary: String,
     @Json(name = "id")

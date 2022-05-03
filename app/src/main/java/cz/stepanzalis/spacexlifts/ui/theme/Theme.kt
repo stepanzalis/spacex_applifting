@@ -17,7 +17,7 @@ private val DarkColorPalette = darkColors(
 private val LightColorPalette = lightColors(
     primary = LiftingBlack,
     primaryVariant = LiftingInverted,
-    secondary = LiftingGrey,
+    secondary = LiftingInverted,
     background = Color.White,
 )
 
@@ -33,6 +33,6 @@ fun SpaceXLiftsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
         colors = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }

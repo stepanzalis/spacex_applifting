@@ -1,7 +1,11 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.protobuf") version "0.8.16"
+
     kotlin("plugin.serialization") version "1.6.10"
 }
 
@@ -12,6 +16,9 @@ val koinVersion: String by project
 val roomVersion: String by project
 val moshiConverterVersion: String by project
 val accompanistVersion: String by project
+val chuckerVersion: String by project
+val okHttpLoggerVersion: String by project
+val dataStoreVersion: String by project
 
 android {
     compileSdk = 31
@@ -99,14 +106,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
-
     implementation("androidx.navigation:navigation-compose:2.4.2")
 
     implementation("androidx.window:window:1.0.0")
 
-    androidTestImplementation("androidx.test:core:1.4.0")
-    androidTestImplementation("androidx.test:rules:1.4.0")
-    androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.compose.ui:ui-test:$composeVersion")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
@@ -118,18 +121,45 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation ("com.squareup.retrofit2:converter-moshi:$moshiConverterVersion")
 
-    // Room
+    // Room / Data store
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+
+    implementation("com.google.protobuf:protobuf-javalite:3.18.0")
+    implementation("androidx.datastore:datastore-preferences:$dataStoreVersion")
+    implementation("androidx.datastore:datastore:$dataStoreVersion")
 
     // DI
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-androidx-compose:$koinVersion")
 
+    // Debug + mock
+    debugImplementation("com.github.chuckerteam.chucker:library:$chuckerVersion")
+    debugImplementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggerVersion")
+
     testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
 
     implementation("io.arrow-kt:arrow-optics:0.13.2")
     kapt("io.arrow-kt:arrow-meta:0.13.2")
+}
 
+protobuf {
+    protoc {
+        // find latest version number here:
+        // https://mvnrepository.com/artifact/com.google.protobuf/protoc
+        artifact = "com.google.protobuf:protoc:3.18.0"
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.plugins{
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }

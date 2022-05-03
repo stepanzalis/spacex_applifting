@@ -25,11 +25,11 @@ data class RocketLaunchResponse(
 
 @JsonClass(generateAdapter = true)
 data class Rocket(
-    @Json(name = "rocket_id")
+    @Json(name = "id")
     val id: String,
-    @Json(name = "rocket_name")
+    @Json(name = "name")
     val name: String,
-    @Json(name = "rocket_type")
+    @Json(name = "type")
     val type: String,
 )
 

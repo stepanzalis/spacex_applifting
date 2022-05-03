@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.main.base
+package cz.stepanzalis.spacexlifts.ui.base
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -19,7 +19,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
-import cz.stepanzalis.spacexlifts.ui.main.base.navigation.SpaceXNavigation
+import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigation
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
 
 

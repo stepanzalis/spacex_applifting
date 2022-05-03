@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.main.feature.launches
+package cz.stepanzalis.spacexlifts.ui.feature.launches
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -15,11 +15,9 @@ import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.DrawerIconHeight
 import cz.stepanzalis.spacexlifts.io.utils.ext.showDrawerIcon
-import cz.stepanzalis.spacexlifts.ui.main.feature.company.CompanyScreenBody
 
 @Composable
 fun LaunchesScreen(
-    launchesVM: LaunchesVM,
     isExpandedScreen: Boolean,
     openDrawer: () -> Unit,
     scaffoldState: ScaffoldState,
@@ -65,6 +63,6 @@ fun LaunchesScreen(
         }
     ) { innerPadding ->
         val screenModifier = Modifier.padding(innerPadding)
-        LaunchesScreenBody(launchesVM, isExpandedScreen, screenModifier)
+        LaunchesScreenBody(screenModifier)
     }
 }

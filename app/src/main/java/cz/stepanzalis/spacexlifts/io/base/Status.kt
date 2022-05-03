@@ -4,12 +4,15 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.HttpException
 
+typealias Init = Status.Init
 typealias Loading = Status.Loading
 typealias Success = Status.Success
 typealias Failure = Status.Failure
 typealias FailureRetry = Status.FailureRetry
 
 sealed class Status {
+
+    object Init : Status()
 
     object Loading : Status()
 

@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.main
+package cz.stepanzalis.spacexlifts.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

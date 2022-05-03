@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.main.base.navigation
+package cz.stepanzalis.spacexlifts.ui.base.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -6,8 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import cz.stepanzalis.spacexlifts.ui.main.feature.company.route.CompanyRoute
-import cz.stepanzalis.spacexlifts.ui.main.feature.launches.route.LaunchesRoute
+import cz.stepanzalis.spacexlifts.ui.feature.company.route.CompanyRoute
+import cz.stepanzalis.spacexlifts.ui.feature.launches.route.LaunchesRoute
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -25,7 +25,7 @@ fun SpaceXNavGraph(
     ) {
         composable(SpaceXNavigation.Launches) {
             LaunchesRoute(
-                launchesVM =  getViewModel(),
+                launchesVM = getViewModel(),
                 isExpandedScreen = isExpandedScreen,
                 openDrawer = openDrawer
             )

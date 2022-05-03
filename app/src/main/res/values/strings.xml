@@ -8,4 +8,9 @@
     <string name="core_drawer_open">Open</string>
     <string name="core_search">Search</string>
     <string name="launches_title">Launches</string>
+    <string name="dialog_close">Close</string>
+    <string name="error_dialog_title">Something went wrong</string>
+    <string name="company_address">Address</string>
+    <string name="company_address_city_placeholder">%s, %s</string>
+    <string name="company_head">Head of SpaceX</string>
 </resources>

@@ -5,13 +5,14 @@ import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import cz.stepanzalis.spacexlifts.BuildConfig
+import cz.stepanzalis.spacexlifts.addDebugInterceptors
 import cz.stepanzalis.spacexlifts.io.db.SpaceXDatabase
 import cz.stepanzalis.spacexlifts.io.interceptors.ConnectionInterceptor
 import cz.stepanzalis.spacexlifts.io.repositories.SpaceXRepo
 import cz.stepanzalis.spacexlifts.io.services.ApiConfig
 import cz.stepanzalis.spacexlifts.io.services.SpaceXApiService
-import cz.stepanzalis.spacexlifts.ui.main.feature.company.CompanyVM
-import cz.stepanzalis.spacexlifts.ui.main.feature.launches.LaunchesVM
+import cz.stepanzalis.spacexlifts.ui.feature.company.CompanyVM
+import cz.stepanzalis.spacexlifts.ui.feature.launches.LaunchesVM
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -35,7 +36,7 @@ val appModules = listOf(dataModule, uiModule)
 
 private fun Module.viewModels() {
     viewModel { LaunchesVM(get()) }
-    viewModel { CompanyVM(get()) }
+    viewModel { CompanyVM(androidApplication(), get()) }
 }
 
 private fun Module.api() {
@@ -81,6 +82,7 @@ private fun createOkHttpClient(context: Context): OkHttpClient {
         writeTimeout(ApiConfig.Timeout, TimeUnit.SECONDS)
         callTimeout(ApiConfig.Timeout, TimeUnit.SECONDS)
         addInterceptor(ConnectionInterceptor(context))
+        addDebugInterceptors(context)
     }.build()
 }
 

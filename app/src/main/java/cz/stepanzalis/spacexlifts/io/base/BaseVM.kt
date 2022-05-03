@@ -1,19 +1,20 @@
 package cz.stepanzalis.spacexlifts.io.base
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseVM : ViewModel() {
 
-    val defaultStatus = SingleLiveEvent<Status>()
+    val defaultStatus = MutableStateFlow<Status>(Init)
 
     /**
-     Flag indicates if request can be retried
-     If true, all necessary info is passed down to be able to repeat the request
+    Flag indicates if request can be retried
+    If true, all necessary info is passed down to be able to repeat the request
      */
     open val defaultRetryRequest = true
 
@@ -27,20 +28,20 @@ abstract class BaseVM : ViewModel() {
     fun <ResponseType> launch(
         retry: Boolean = defaultRetryRequest,
         block: suspend CoroutineScope.() -> ResponseType,
-        status: MutableLiveData<Status>? = defaultStatus
+        status: MutableStateFlow<Status>? = defaultStatus
     ) = launch(retry, block, null, status)
 
     fun <ResponseType> launch(
         retry: Boolean = defaultRetryRequest,
         block: suspend CoroutineScope.() -> ResponseType,
         onError: ((e: Exception, errorBody: String?) -> Unit)? = null,
-        status: MutableLiveData<Status>? = defaultStatus
+        status: MutableStateFlow<Status>? = defaultStatus
     ) = viewModelScope.launch(
         context = CoroutineExceptionHandler { _, throwable ->
             when (throwable) {
                 is Exception -> {
                     val (exception, body) = launchErrorHandler.handleError(throwable)
-                    status?.postValue(
+                    status?.value = (
                         if (retry.not()) Failure(exception, body)
                         else FailureRetry(
                             exception = exception,
@@ -53,9 +54,9 @@ abstract class BaseVM : ViewModel() {
             }
         },
         block = {
-            status?.postValue(Loading)
+            status?.emit(Loading)
             val result = block.invoke(this)
-            status?.postValue(Success(result))
+            status?.emit(Success(result))
         },
     )
 
@@ -63,7 +64,9 @@ abstract class BaseVM : ViewModel() {
         retry: Boolean,
         block: suspend CoroutineScope.() -> ResponseType,
         onError: ((e: Exception, errorBody: String?) -> Unit)?,
-        status: MutableLiveData<Status>?
+        status: MutableStateFlow<Status>?
     ): () -> Unit = { launch(retry, block, onError, status) }
+
+    abstract fun dismissErrorDialog()
 
 }
