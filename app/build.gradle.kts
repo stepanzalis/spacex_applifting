@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
-    kotlin("plugin.serialization") version "1.5.0"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 val composeVersion: String by project
@@ -11,6 +11,7 @@ val moshiVersion: String by project
 val koinVersion: String by project
 val roomVersion: String by project
 val moshiConverterVersion: String by project
+val accompanistVersion: String by project
 
 android {
     compileSdk = 31
@@ -29,8 +30,8 @@ android {
     flavorDimensions("environment")
     productFlavors {
 
-        val prodBaseUrl = "\"https://api.spacexdata.com/v4\""
-        val devBaseUrl = "\"https://api.spacexdata.com/v4\""
+        val prodBaseUrl = "\"https://api.spacexdata.com/v4/\""
+        val devBaseUrl = "\"https://api.spacexdata.com/v4/\""
 
         create("dev") {
             buildConfigField("String", "API_BASE_URL", devBaseUrl)
@@ -76,11 +77,38 @@ dependencies {
     implementation("com.google.accompanist:accompanist-swiperefresh:0.13.0")
 
     // Compose
+    implementation("androidx.compose.runtime:runtime:$composeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
+    implementation ("androidx.compose.material:material:$composeVersion")
+    implementation ("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation ("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.animation:animation:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
+    implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
+    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+
+    implementation("com.google.accompanist:accompanist-swiperefresh:$accompanistVersion")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion")
+
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.activity:activity-compose:$composeVersion")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
+
+    implementation("androidx.navigation:navigation-compose:2.4.2")
+
+    implementation("androidx.window:window:1.0.0")
+
+    androidTestImplementation("androidx.test:core:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.compose.ui:ui-test:$composeVersion")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.5.0-beta01")
