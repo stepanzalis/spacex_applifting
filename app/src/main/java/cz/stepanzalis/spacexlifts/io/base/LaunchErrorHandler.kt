@@ -3,7 +3,7 @@ package cz.stepanzalis.spacexlifts.io.base
 import retrofit2.HttpException
 
 /**
- * Parsing error body to a exception with error message
+ * Parsing error body to an exception with error message
  */
 open class LaunchErrorHandler {
 

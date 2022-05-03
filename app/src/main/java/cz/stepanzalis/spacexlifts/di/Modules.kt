@@ -10,8 +10,11 @@ import cz.stepanzalis.spacexlifts.io.interceptors.ConnectionInterceptor
 import cz.stepanzalis.spacexlifts.io.repositories.SpaceXRepo
 import cz.stepanzalis.spacexlifts.io.services.ApiConfig
 import cz.stepanzalis.spacexlifts.io.services.SpaceXApiService
+import cz.stepanzalis.spacexlifts.ui.main.feature.company.CompanyVM
+import cz.stepanzalis.spacexlifts.ui.main.feature.launches.LaunchesVM
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -31,7 +34,8 @@ val uiModule = module {
 val appModules = listOf(dataModule, uiModule)
 
 private fun Module.viewModels() {
-    
+    viewModel { LaunchesVM(get()) }
+    viewModel { CompanyVM(get()) }
 }
 
 private fun Module.api() {
@@ -42,7 +46,6 @@ private fun Module.api() {
         createRetrofit(
             okHttpClient = get(),
             moshi = get(),
-            baseUrl = BuildConfig.API_BASE_URL
         )
     }
     single { get<Retrofit>().create(SpaceXApiService::class.java) }
@@ -81,9 +84,9 @@ private fun createOkHttpClient(context: Context): OkHttpClient {
     }.build()
 }
 
-private fun createRetrofit(okHttpClient: OkHttpClient, moshi: Moshi, baseUrl: String): Retrofit {
+private fun createRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
     return Retrofit.Builder().apply {
-        baseUrl(baseUrl)
+        baseUrl(BuildConfig.API_BASE_URL)
         client(okHttpClient)
         addConverterFactory(MoshiConverterFactory.create(moshi))
     }.build()

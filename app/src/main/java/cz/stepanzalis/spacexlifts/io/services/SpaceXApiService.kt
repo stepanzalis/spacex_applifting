@@ -7,12 +7,12 @@ import retrofit2.http.GET
 
 interface SpaceXApiService {
 
-    @GET("/company")
+    @GET("company")
     suspend fun fetchCompanyInfo(): CompanyInfoResponse
 
-    @GET("/launches/latest")
+    @GET("launches/latest")
     suspend fun fetchLatestRocketLaunches(): List<RocketLaunchResponse>
 
-    @GET("/rockets")
+    @GET("rockets")
     suspend fun fetchRockets(): List<Rocket>
 }
