@@ -12,7 +12,7 @@ import cz.stepanzalis.spacexlifts.io.repositories.SpaceXRepo
 import cz.stepanzalis.spacexlifts.io.services.ApiConfig
 import cz.stepanzalis.spacexlifts.io.services.SpaceXApiService
 import cz.stepanzalis.spacexlifts.ui.feature.company.CompanyVM
-import cz.stepanzalis.spacexlifts.ui.feature.launches.LaunchesVM
+import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.LaunchesVM
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel

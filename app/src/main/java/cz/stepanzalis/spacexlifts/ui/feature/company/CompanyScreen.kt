@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.DrawerIconHeight
 import cz.stepanzalis.spacexlifts.io.utils.ext.showDrawerIcon
+import cz.stepanzalis.spacexlifts.ui.feature.company.components.CompanyScreenBody
 
 @Composable
 fun CompanyScreen(

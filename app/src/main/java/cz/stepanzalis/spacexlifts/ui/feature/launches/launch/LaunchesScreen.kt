@@ -1,4 +1,4 @@
-package cz.stepanzalis.spacexlifts.ui.feature.launches
+package cz.stepanzalis.spacexlifts.ui.feature.launches.launch
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -12,12 +12,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.DrawerIconHeight
 import cz.stepanzalis.spacexlifts.io.utils.ext.showDrawerIcon
 
 @Composable
 fun LaunchesScreen(
+    navController: NavController,
     isExpandedScreen: Boolean,
     openDrawer: () -> Unit,
     scaffoldState: ScaffoldState,
@@ -63,6 +65,6 @@ fun LaunchesScreen(
         }
     ) { innerPadding ->
         val screenModifier = Modifier.padding(innerPadding)
-        LaunchesScreenBody(screenModifier)
+        LaunchesScreenBody(screenModifier, navController)
     }
 }

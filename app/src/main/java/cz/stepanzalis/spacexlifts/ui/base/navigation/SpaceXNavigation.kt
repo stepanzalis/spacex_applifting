@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 object SpaceXNavigation {
     const val Launches = "launches"
     const val Company = "company"
+    const val RocketDetail = "rocket"
 }
 
 /**

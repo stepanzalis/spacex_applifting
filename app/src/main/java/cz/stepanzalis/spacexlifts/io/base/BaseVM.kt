@@ -2,11 +2,8 @@ package cz.stepanzalis.spacexlifts.io.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
 abstract class BaseVM : ViewModel() {
 
@@ -42,17 +39,17 @@ abstract class BaseVM : ViewModel() {
                 is Exception -> {
                     val (exception, body) = launchErrorHandler.handleError(throwable)
                     status?.value = (
-                        if (retry.not()) Failure(exception, body)
-                        else FailureRetry(
-                            exception = exception,
-                            errorBody = body,
-                            retryRequest = buildRepeatAction(retry, block, onError, status)
-                        )
-                    )
+                            if (retry.not()) Failure(exception, body)
+                            else FailureRetry(
+                                exception = exception,
+                                errorBody = body,
+                                retryRequest = buildRepeatAction(retry, block, onError, status)
+                            )
+                            )
                     onError?.invoke(exception, body)
                 }
             }
-        },
+        } + Dispatchers.IO,
         block = {
             status?.emit(Loading)
             val result = block.invoke(this)

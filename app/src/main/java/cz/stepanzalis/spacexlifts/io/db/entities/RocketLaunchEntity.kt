@@ -18,13 +18,19 @@ data class RocketLaunchEntity(
     val rocketName: String,
 
     @ColumnInfo(name = "success_launch")
-    val successLaunch: String,
+    val successLaunch: Boolean?,
+
+    @ColumnInfo(name = "launch_detail")
+    val detail: String?,
 
     @ColumnInfo(name = "flight_number")
     val flightNumber: Int,
 
-    @ColumnInfo(name = "launch_data")
+    @ColumnInfo(name = "launch_date")
     val launchDate: Long,
+
+    @ColumnInfo(name = "upcoming")
+    val upcomingLaunch: Boolean,
 ) {
 
     companion object {

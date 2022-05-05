@@ -10,8 +10,8 @@ interface SpaceXApiService {
     @GET("company")
     suspend fun fetchCompanyInfo(): CompanyInfoResponse
 
-    @GET("launches/latest")
-    suspend fun fetchLatestRocketLaunches(): RocketLaunchResponse
+    @GET("launches")
+    suspend fun fetchAllRocketLaunches(): List<RocketLaunchResponse>
 
     @GET("rockets")
     suspend fun fetchRockets(): List<Rocket>

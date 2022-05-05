@@ -7,6 +7,4 @@ val SpacingM = 16.dp
 val SpacingL = 24.dp
 val SpacingXL = 32.dp
 
-val CornerRadius = 8.dp
-
 val CardElevation = 2.dp

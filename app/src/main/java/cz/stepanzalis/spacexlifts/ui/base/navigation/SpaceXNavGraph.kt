@@ -3,12 +3,14 @@ package cz.stepanzalis.spacexlifts.ui.base.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import cz.stepanzalis.spacexlifts.ui.feature.company.route.CompanyRoute
-import cz.stepanzalis.spacexlifts.ui.feature.launches.route.LaunchesRoute
-import org.koin.androidx.compose.getViewModel
+import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.LaunchesRoute
+import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailRoute
 
 @Composable
 fun SpaceXNavGraph(
@@ -25,17 +27,33 @@ fun SpaceXNavGraph(
     ) {
         composable(SpaceXNavigation.Launches) {
             LaunchesRoute(
-                launchesVM = getViewModel(),
+                navController = navController,
                 isExpandedScreen = isExpandedScreen,
                 openDrawer = openDrawer
             )
         }
         composable(SpaceXNavigation.Company) {
             CompanyRoute(
-                companyVM = getViewModel(),
+                isExpandedScreen = isExpandedScreen,
+                openDrawer = openDrawer
+            )
+        }
+        composable(
+            SpaceXNavigation.RocketDetail + NavArg.Id,
+            arguments = listOf(navArgument("id") { type = NavType.StringType })
+        ) { entry ->
+            val id = entry.arguments?.getString("id")
+
+            RocketDetailRoute(
+                id = id ?: "",
                 isExpandedScreen = isExpandedScreen,
                 openDrawer = openDrawer
             )
         }
     }
+}
+
+
+object NavArg {
+    const val Id = "/{id}"
 }

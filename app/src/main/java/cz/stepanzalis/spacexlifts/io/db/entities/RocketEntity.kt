@@ -23,9 +23,6 @@ data class RocketEntity(
     @ColumnInfo(name = "first_flight")
     val firstFlight: Long,
 
-    @ColumnInfo(name = "country")
-    val country: String,
-
     @ColumnInfo(name = "description")
     val description: String,
 ) {

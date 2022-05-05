@@ -1,7 +1,6 @@
 package cz.stepanzalis.spacexlifts.ui.feature.company.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,11 +10,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.CardElevation
-import cz.stepanzalis.spacexlifts.io.common.CornerRadius
 import cz.stepanzalis.spacexlifts.io.common.SpacingM
 import cz.stepanzalis.spacexlifts.io.common.SpacingS
 import cz.stepanzalis.spacexlifts.io.models.company.CompanyVo
 import cz.stepanzalis.spacexlifts.ui.theme.LiftingInverted
+import cz.stepanzalis.spacexlifts.ui.theme.Shapes
 
 @Composable
 fun CompanyCard(
@@ -23,7 +22,7 @@ fun CompanyCard(
     modifier: Modifier,
 ) {
     Card(
-        shape = RoundedCornerShape(CornerRadius),
+        shape = Shapes.large,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = SpacingM),

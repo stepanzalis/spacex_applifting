@@ -22,7 +22,11 @@ fun CompanyScreenBody(
 
     val viewState = companyVM.viewState.collectAsState()
 
-    BaseScreen(status = viewState.value.status, vm = companyVM, showFullscreenLoading = true) {
+    BaseScreen(
+        status = viewState.value.status,
+        vm = companyVM,
+        showFullscreenLoading = true
+    ) {
         Column(modifier = modifier.padding(horizontal = SpacingM)) {
             with(viewState.value) {
                 Text(

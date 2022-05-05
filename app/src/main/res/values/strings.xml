@@ -4,13 +4,22 @@
     <!-- Drawer titles -->
     <string name="section_launches">Launches</string>
     <string name="section_company">Company</string>
+
+    <!-- Company -->
     <string name="company_title">Company</string>
-    <string name="core_drawer_open">Open</string>
-    <string name="core_search">Search</string>
-    <string name="launches_title">Launches</string>
-    <string name="dialog_close">Close</string>
-    <string name="error_dialog_title">Something went wrong</string>
     <string name="company_address">Address</string>
     <string name="company_address_city_placeholder">%s, %s</string>
     <string name="company_head">Head of SpaceX</string>
+
+    <!-- Core -->
+    <string name="core_drawer_open">Open</string>
+    <string name="core_search">Search</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_close">Close</string>
+    <string name="error_dialog_title">Something went wrong</string>
+
+    <!-- Launches -->
+    <string name="launches_title">Launches</string>
+    <string name="launches_empty_launches">No launches available.</string>
 </resources>
