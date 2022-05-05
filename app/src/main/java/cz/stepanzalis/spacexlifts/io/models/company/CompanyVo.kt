@@ -19,11 +19,11 @@ data class CompanyVo(
                 address = "",
                 city = "",
                 ceo = "",
-                cto = "cto",
+                cto = "",
                 ctoPropulsion = "",
                 founded = 0,
                 founder = "",
-                valuation = 1,
+                valuation = 0,
                 summary = "",
                 name = "",
             )

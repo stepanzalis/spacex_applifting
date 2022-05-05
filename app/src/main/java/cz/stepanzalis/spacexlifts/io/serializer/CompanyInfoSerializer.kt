@@ -7,6 +7,9 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.lang.Exception
 
+/**
+ * DataStore proto de/serialization
+ */
 object CompanyInfoSerializer : Serializer<CompanyInfo> {
     override val defaultValue: CompanyInfo = CompanyInfo.getDefaultInstance()
 

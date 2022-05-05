@@ -19,6 +19,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
+import cz.stepanzalis.spacexlifts.io.common.SpacingM
+import cz.stepanzalis.spacexlifts.io.common.SpacingS
 import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigation
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
 
@@ -43,7 +45,6 @@ fun AppDrawer(
                 closeDrawer()
             }
         )
-
         DrawerButton(
             icon = Icons.Default.Apartment,
             label = stringResource(id = R.string.section_company),
@@ -89,12 +90,12 @@ private fun DrawerButton(
     }
 
     val surfaceModifier = modifier
-        .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+        .padding(start = SpacingS, top = SpacingS, end = SpacingS)
         .fillMaxWidth()
+
     Surface(
         modifier = surfaceModifier,
         color = backgroundColor,
-        shape = MaterialTheme.shapes.small
     ) {
         TextButton(
             onClick = action,
@@ -108,10 +109,9 @@ private fun DrawerButton(
                 NavigationIcon(
                     icon = icon,
                     isSelected = isSelected,
-                    contentDescription = null, // decorative
                     tintColor = textIconColor
                 )
-                Spacer(Modifier.width(16.dp))
+                Spacer(Modifier.width(SpacingM))
                 Text(
                     text = label,
                     style = MaterialTheme.typography.body2,

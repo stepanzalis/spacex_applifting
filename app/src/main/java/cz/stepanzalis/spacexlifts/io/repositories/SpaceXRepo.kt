@@ -4,18 +4,30 @@ import cz.stepanzalis.spacexlifts.io.db.dao.RocketDao
 import cz.stepanzalis.spacexlifts.io.db.dao.RocketLaunchDao
 import cz.stepanzalis.spacexlifts.io.db.entities.RocketEntity
 import cz.stepanzalis.spacexlifts.io.db.entities.RocketLaunchEntity
+import cz.stepanzalis.spacexlifts.io.response.CompanyInfoResponse
 import cz.stepanzalis.spacexlifts.io.services.SpaceXApiService
 import kotlinx.coroutines.flow.Flow
+
+interface ISpaceXRepo {
+    suspend fun fetchCompanyInfo(): CompanyInfoResponse
+    suspend fun fetchRocketsWithLaunches()
+    fun getAllLaunches(
+        upcoming: Boolean? = null,
+        thisYearInTimestamp: Long? = null
+    ): Flow<List<RocketLaunchEntity>>
+
+    suspend fun getRocketDetail(id: String): RocketEntity
+}
 
 class SpaceXRepo(
     private val rocketLaunchDao: RocketLaunchDao,
     private val rocketDao: RocketDao,
     private val spaceXApiService: SpaceXApiService,
-) {
+) : ISpaceXRepo {
 
-    suspend fun fetchCompanyInfo() = spaceXApiService.fetchCompanyInfo()
+    override suspend fun fetchCompanyInfo() = spaceXApiService.fetchCompanyInfo()
 
-    suspend fun fetchRocketsWithLaunches() {
+    override suspend fun fetchRocketsWithLaunches() {
         val rockets = saveRockets()
         saveLaunchesWithRocketName(rockets)
     }
@@ -43,9 +55,12 @@ class SpaceXRepo(
         rocketLaunchDao.insert(launchesWithRocketName)
     }
 
-    fun getAllLaunches(upcoming: Boolean? = null, thisYearInTimestamp: Long?): Flow<List<RocketLaunchEntity>> {
+    override fun getAllLaunches(
+        upcoming: Boolean?,
+        thisYearInTimestamp: Long?
+    ): Flow<List<RocketLaunchEntity>> {
         return rocketLaunchDao.getLaunches(upcoming, thisYearInTimestamp)
     }
 
-    suspend fun getRocketDetail(id: String): RocketEntity = rocketDao.getByRocketId(id)
+    override suspend fun getRocketDetail(id: String): RocketEntity = rocketDao.getByRocketId(id)
 }
