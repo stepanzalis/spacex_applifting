@@ -25,4 +25,4 @@ Doc: https://github.com/r-spacex/SpaceX-API/tree/master/docs#rspacex-api-docs
   For smaller data like company info, settings, etc. - DataStore is used. Why DataStore for company info? There will be just one company stored, so make database entity is overkill for this kind of information.
 - Another option for company info could be offline caching in Retrofit layer.   
 
-### Current spend time: 5MH 
+### Current spend time: 7MH
