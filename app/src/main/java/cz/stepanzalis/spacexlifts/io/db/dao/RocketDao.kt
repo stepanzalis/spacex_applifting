@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
 interface RocketDao: BaseDao<RocketEntity> {
 
     @Query("SELECT * FROM rocket WHERE id = :id")
-    fun getByRocketId(id: String): Flow<RocketEntity>
+    suspend fun getByRocketId(id: String): RocketEntity
 }

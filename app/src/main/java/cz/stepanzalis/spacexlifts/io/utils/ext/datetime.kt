@@ -13,3 +13,4 @@ fun Long.parseToHumanReadableDate(): String =
 
 fun Long.parseToHumanReadableDateTime(): String =
     SimpleDateFormat("d. M. yyyy HH:mm", locale).format(this)
+

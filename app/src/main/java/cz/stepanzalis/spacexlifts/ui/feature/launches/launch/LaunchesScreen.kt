@@ -14,8 +14,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cz.stepanzalis.spacexlifts.R
-import cz.stepanzalis.spacexlifts.io.common.DrawerIconHeight
+import cz.stepanzalis.spacexlifts.io.common.IconHeight
 import cz.stepanzalis.spacexlifts.io.utils.ext.showDrawerIcon
+import cz.stepanzalis.spacexlifts.ui.theme.AppBarElevation
 
 @Composable
 fun LaunchesScreen(
@@ -42,22 +43,12 @@ fun LaunchesScreen(
                                 painter = painterResource(isExpandedScreen.showDrawerIcon()),
                                 contentDescription = stringResource(R.string.core_drawer_open),
                                 tint = MaterialTheme.colors.primary,
-                                modifier = Modifier.heightIn(max = DrawerIconHeight)
+                                modifier = Modifier.heightIn(max = IconHeight)
                             )
                         }
                     }
                 } else {
                     null
-                },
-                actions = {
-                    IconButton(
-                        onClick = { /* TODO: Open search */ }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = stringResource(R.string.core_search)
-                        )
-                    }
                 },
                 backgroundColor = MaterialTheme.colors.surface,
                 elevation = 0.dp

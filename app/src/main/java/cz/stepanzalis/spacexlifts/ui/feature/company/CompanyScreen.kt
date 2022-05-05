@@ -11,9 +11,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
-import cz.stepanzalis.spacexlifts.io.common.DrawerIconHeight
+import cz.stepanzalis.spacexlifts.io.common.IconHeight
 import cz.stepanzalis.spacexlifts.io.utils.ext.showDrawerIcon
 import cz.stepanzalis.spacexlifts.ui.feature.company.components.CompanyScreenBody
+import cz.stepanzalis.spacexlifts.ui.theme.AppBarElevation
 
 @Composable
 fun CompanyScreen(
@@ -40,13 +41,13 @@ fun CompanyScreen(
                                 painter = painterResource(isExpandedScreen.showDrawerIcon()),
                                 contentDescription = stringResource(R.string.core_drawer_open),
                                 tint = MaterialTheme.colors.primary,
-                                modifier = Modifier.heightIn(max = DrawerIconHeight)
+                                modifier = Modifier.heightIn(max = IconHeight)
                             )
                         }
                     }
                 } else null,
                 backgroundColor = MaterialTheme.colors.surface,
-                elevation = 0.dp
+                elevation = AppBarElevation
             )
         }
     ) { innerPadding ->

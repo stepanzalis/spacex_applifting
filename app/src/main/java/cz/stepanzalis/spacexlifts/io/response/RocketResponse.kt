@@ -18,16 +18,16 @@ data class RocketLaunchResponse(
     @Json(name = "rocket")
     val rocketId: String,
     @Json(name = "success")
-    val launchSuccess: Boolean?, // success is null when it's upcoming launch
+    val launchSuccess: Boolean?, // success param is null when it's upcoming launch
     val links: Links,
     @Json(name = "upcoming")
     val upcomingLaunch: Boolean,
     @Json(name = "details")
     val detail: String?,
 ) {
-    fun toEntity(rocketName: String) = RocketLaunchEntity(
+    fun toEntity() = RocketLaunchEntity(
         id = id,
-        rocketName = rocketName,
+        rocketName = "", // to prevent side effect, name is put later
         rocketId = rocketId,
         flightNumber = flightNumber,
         successLaunch = launchSuccess,

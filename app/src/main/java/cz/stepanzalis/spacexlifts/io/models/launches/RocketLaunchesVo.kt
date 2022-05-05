@@ -6,7 +6,7 @@ data class RocketLaunchesVo(
     val rocketName: String,
     val success: Boolean,
     val detail: String,
-    val flightNumber: Int,
+    val flightNumber: String,
     val date: String,
     val upcoming: Boolean,
 )

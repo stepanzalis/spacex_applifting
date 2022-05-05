@@ -13,6 +13,7 @@ import cz.stepanzalis.spacexlifts.io.services.ApiConfig
 import cz.stepanzalis.spacexlifts.io.services.SpaceXApiService
 import cz.stepanzalis.spacexlifts.ui.feature.company.CompanyVM
 import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.LaunchesVM
+import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailVM
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -37,6 +38,7 @@ val appModules = listOf(dataModule, uiModule)
 private fun Module.viewModels() {
     viewModel { LaunchesVM(get()) }
     viewModel { CompanyVM(androidApplication(), get()) }
+    viewModel { params -> RocketDetailVM(params.get(), get()) }
 }
 
 private fun Module.api() {

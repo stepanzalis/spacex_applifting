@@ -28,7 +28,7 @@ class SpaceXRepo(
 
     /**
      * We need to save rocket's name to launch entity (to show it quickly in UI)
-     * It's nicer to group it and find the rocket name for the whole group instead for all items separately
+     * It's nicer to group them and find the rocket name for the whole group instead for all items separately
      * ! When rocket id isn't found, empty string is added
      */
     private suspend fun saveLaunchesWithRocketName(rockets: List<RocketEntity>) {
@@ -36,7 +36,7 @@ class SpaceXRepo(
             .groupBy { it.rocketId }
             .map { entry ->
                 val rocketName = rockets.firstOrNull { it.id == entry.key }?.name ?: ""
-                entry.value.map { it.toEntity(rocketName = rocketName) }
+                entry.value.map { it.toEntity().copy(rocketName = rocketName) }
             }
             .flatten()
 
@@ -47,5 +47,5 @@ class SpaceXRepo(
         return rocketLaunchDao.getLaunches(upcoming, thisYearInTimestamp)
     }
 
-    fun getRocketDetail(id: String): Flow<RocketEntity> = rocketDao.getByRocketId(id)
+    suspend fun getRocketDetail(id: String): RocketEntity = rocketDao.getByRocketId(id)
 }

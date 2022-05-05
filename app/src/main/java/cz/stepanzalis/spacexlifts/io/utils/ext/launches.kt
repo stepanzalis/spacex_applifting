@@ -10,8 +10,8 @@ fun RocketLaunchEntity.fromEntityToModel(): RocketLaunchesVo {
         rocketName = rocketName,
         success = successLaunch ?: upcomingLaunch,
         upcoming = upcomingLaunch,
-        detail = detail ?: "",
-        flightNumber = flightNumber,
-        date = launchDate.parseToHumanReadableDateTime()
+        detail = detail ?: "-",
+        flightNumber = flightNumber.toString(),
+        date = launchDate.inMillis.parseToHumanReadableDate()
     )
 }

@@ -1,5 +1,6 @@
 package cz.stepanzalis.spacexlifts.ui.base.navigation
 
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,9 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import cz.stepanzalis.spacexlifts.ui.feature.company.route.CompanyRoute
-import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.LaunchesRoute
-import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailRoute
+import cz.stepanzalis.spacexlifts.ui.feature.company.CompanyScreen
+import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.LaunchesScreen
+import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailScreen
 
 @Composable
 fun SpaceXNavGraph(
@@ -26,34 +27,32 @@ fun SpaceXNavGraph(
         modifier = modifier
     ) {
         composable(SpaceXNavigation.Launches) {
-            LaunchesRoute(
+            LaunchesScreen(
                 navController = navController,
                 isExpandedScreen = isExpandedScreen,
+                scaffoldState = rememberScaffoldState(),
                 openDrawer = openDrawer
             )
         }
         composable(SpaceXNavigation.Company) {
-            CompanyRoute(
+            CompanyScreen(
                 isExpandedScreen = isExpandedScreen,
-                openDrawer = openDrawer
+                openDrawer = openDrawer,
+                scaffoldState = rememberScaffoldState(),
             )
         }
         composable(
-            SpaceXNavigation.RocketDetail + NavArg.Id,
-            arguments = listOf(navArgument("id") { type = NavType.StringType })
+            SpaceXNavigation.RocketDetail + NavArg.IdArg,
+            arguments = listOf(navArgument(NavArg.Id) { type = NavType.StringType })
         ) { entry ->
-            val id = entry.arguments?.getString("id")
-
-            RocketDetailRoute(
-                id = id ?: "",
-                isExpandedScreen = isExpandedScreen,
-                openDrawer = openDrawer
-            )
+            val id = entry.arguments?.getString(NavArg.Id)
+            RocketDetailScreen(id = id ?: "", navController)
         }
     }
 }
 
 
 object NavArg {
-    const val Id = "/{id}"
+    const val IdArg = "/{id}"
+    const val Id = "id"
 }

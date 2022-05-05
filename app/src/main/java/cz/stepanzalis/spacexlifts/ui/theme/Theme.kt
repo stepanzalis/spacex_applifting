@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 private val DarkColorPalette = darkColors(
     primary = Color.White,
@@ -20,6 +21,8 @@ private val LightColorPalette = lightColors(
     secondary = LiftingInverted,
     background = Color.White,
 )
+
+val AppBarElevation = 2.dp
 
 @Composable
 fun SpaceXLiftsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {

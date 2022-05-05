@@ -14,6 +14,7 @@
     <!-- Core -->
     <string name="core_drawer_open">Open</string>
     <string name="core_search">Search</string>
+    <string name="core_back">Back</string>
 
     <!-- Dialogs -->
     <string name="dialog_close">Close</string>
@@ -22,4 +23,16 @@
     <!-- Launches -->
     <string name="launches_title">Launches</string>
     <string name="launches_empty_launches">No launches available.</string>
+    <string name="launches_flight_number">Flight no. %s</string>
+    <string name="launches_rocket_name">Rocket %s</string>
+
+
+    <!-- Rocket -->
+    <string name="rocket_detail_title">Rocket</string>
+    <string name="rocket_name">Name</string>
+    <string name="rocket_stages">Number of stages</string>
+    <string name="rocket_first_flight">First flight date</string>
+    <string name="rocket_description">Rocket description</string>
+    <string name="launches_filter_only_this_year">This year</string>
+    <string name="launches_filter_upcoming">Upcoming</string>
 </resources>

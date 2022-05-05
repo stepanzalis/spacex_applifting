@@ -10,14 +10,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import cz.stepanzalis.spacexlifts.R
+import cz.stepanzalis.spacexlifts.io.base.Loading
+import cz.stepanzalis.spacexlifts.io.base.Status
 import cz.stepanzalis.spacexlifts.io.common.SpacingM
+import cz.stepanzalis.spacexlifts.io.common.SpacingXXL
+import cz.stepanzalis.spacexlifts.io.models.launches.LaunchFilter
 import cz.stepanzalis.spacexlifts.io.models.launches.RocketLaunchesVo
 import cz.stepanzalis.spacexlifts.ui.base.BaseScreen
 import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigation
+import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.components.LaunchFilterChip
 import cz.stepanzalis.spacexlifts.ui.feature.launches.launch.components.LaunchItem
 import org.koin.androidx.compose.getViewModel
 
@@ -33,11 +36,20 @@ fun LaunchesScreenBody(
     BaseScreen(
         status = viewState.value.status,
         vm = launchesVM,
-        showFullscreenLoading = true
     ) {
+        Row(modifier = modifier.padding(horizontal = SpacingM)) {
+            LaunchFilter.values().forEach {
+                LaunchFilterChip(
+                    filter = it,
+                    isSelected = viewState.value.filters.contains(it),
+                    onSelectedFilterChanged = launchesVM::toggleFilter
+                )
+            }
+        }
         LaunchesList(
             navController = navController,
             launches = viewState.value.launches,
+            status = viewState.value.status,
             modifier = modifier,
         )
     }
@@ -47,20 +59,23 @@ fun LaunchesScreenBody(
 fun LaunchesList(
     navController: NavController,
     launches: List<RocketLaunchesVo>,
+    status: Status,
     modifier: Modifier,
 ) {
+    val canShowEmptyView = launches.isEmpty() && status != Loading
+
     LazyColumn(
-        contentPadding = PaddingValues(horizontal = SpacingM),
-        modifier = modifier.fillMaxHeight()
+        contentPadding = PaddingValues(start = SpacingM, end = SpacingM),
+        modifier = modifier.padding(top = SpacingXXL),
     ) {
-        when (launches.isEmpty()) {
-            true -> item { EmptyLaunchView(modifier) }
-            false -> {
+        when {
+            canShowEmptyView -> item { EmptyLaunchView() }
+            else -> {
                 items(launches) { item ->
                     LaunchItem(
                         item = item,
                         onItemClicked = {
-                            navController.navigate(SpaceXNavigation.RocketDetail )
+                            navController.navigate(SpaceXNavigation.RocketDetail + "/${item.rocketId}")
                         },
                     )
                 }
@@ -71,7 +86,7 @@ fun LaunchesList(
 
 
 @Composable
-fun EmptyLaunchView(modifier: Modifier) {
+fun EmptyLaunchView() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
