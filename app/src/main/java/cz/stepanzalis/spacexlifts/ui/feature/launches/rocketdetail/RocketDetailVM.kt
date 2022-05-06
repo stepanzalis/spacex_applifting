@@ -14,13 +14,11 @@ class RocketDetailVM(
 
     private val _viewState = MutableStateFlow(RocketState())
 
-    val viewState = _viewState
-        .map { it }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            _viewState.value
-        )
+    val viewState = _viewState.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        _viewState.value
+    )
 
     init {
         getRocketDetail()

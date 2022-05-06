@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.viewModelScope
 import cz.stepanzalis.spacexlifts.AppDebugToolsConfig
 import cz.stepanzalis.spacexlifts.io.base.BaseVM
+import cz.stepanzalis.spacexlifts.io.base.Failure
 import cz.stepanzalis.spacexlifts.io.base.Status
 import cz.stepanzalis.spacexlifts.io.base.Success
 import cz.stepanzalis.spacexlifts.io.repositories.SpaceXRepo
@@ -21,13 +22,12 @@ class CompanyVM(
 ) : BaseVM() {
 
     private val _viewState = MutableStateFlow(CompanyState())
-    val viewState = _viewState
-        .map { it }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            _viewState.value
-        )
+
+    val viewState = _viewState.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        _viewState.value
+    )
 
     init {
         watchCompanyInfo()
@@ -35,26 +35,28 @@ class CompanyVM(
     }
 
     private fun watchCompanyInfo() = with(applicationContext) {
-        launch {
-            companyProtoDataStore.data
-                .catch {
-                    _viewState.update { CompanyState.error() }
-                }
-                .map { data ->
-                    _viewState.update { CompanyState.success(data.toModel()) }
-                }.collect()
-        }
+        launch(
+            block = {
+                companyProtoDataStore.data
+                    .catch { t -> defaultStatus.update { Failure(Exception(t)) } }
+                    .map { company ->
+                        _viewState.update { CompanyState.success(company.toModel()) }
+                    }.collect()
+            },
+        )
     }
 
     private fun fetchCompanyInfo() {
-        launch {
-            val company = spaceXRepo.fetchCompanyInfo()
-            saveCompanyToDataStore(company)
-        }
+        launch(
+            block = {
+                val company = spaceXRepo.fetchCompanyInfo()
+                saveCompanyToDataStore(company)
+            },
+        )
     }
 
     private fun saveCompanyToDataStore(company: CompanyInfoResponse) = with(applicationContext) {
-        launch {
+        launch(block = {
             try {
                 companyProtoDataStore.updateData {
                     company.fromResponseToEntity(it)
@@ -62,7 +64,7 @@ class CompanyVM(
             } catch (e: Exception) {
                 AppDebugToolsConfig.logFailure(Status.Failure(e))
             }
-        }
+        })
     }
 
     override fun dismissErrorDialog() {

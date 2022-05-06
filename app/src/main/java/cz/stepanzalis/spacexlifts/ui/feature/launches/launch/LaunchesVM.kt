@@ -17,13 +17,11 @@ class LaunchesVM(
 
     private val _viewState = MutableStateFlow(LaunchesState())
 
-    val viewState = _viewState
-        .map { it }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.Eagerly,
-            _viewState.value
-        )
+    val viewState = _viewState.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        _viewState.value
+    )
 
     init {
         watchRocketLaunches()
@@ -51,7 +49,7 @@ class LaunchesVM(
     }
 
     fun toggleFilter(filter: LaunchFilter) = launch {
-        val filters = _viewState.value.filters.apply { addOrRemove(filter)  }
+        val filters = _viewState.value.filters.apply { addOrRemove(filter) }
         _viewState.update { it.copy(filters = it.filters) }
         filterLaunches(filters)
     }
@@ -72,7 +70,7 @@ class LaunchesVM(
         }
 
     override fun dismissErrorDialog() {
-        launch { _viewState.update { it.copy(status = Status.Success()) } }
+        launch { defaultStatus.update { Status.Success() } }
     }
 
     private fun MutableSet<LaunchFilter>.addOrRemove(filter: LaunchFilter) {

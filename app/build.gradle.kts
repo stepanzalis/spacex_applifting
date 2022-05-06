@@ -12,6 +12,7 @@ plugins {
 val composeVersion: String by project
 val retrofitVersion: String by project
 val moshiVersion: String by project
+val navVersion: String by project
 val koinVersion: String by project
 val roomVersion: String by project
 val moshiConverterVersion: String by project
@@ -19,6 +20,7 @@ val accompanistVersion: String by project
 val chuckerVersion: String by project
 val okHttpLoggerVersion: String by project
 val dataStoreVersion: String by project
+val mockitoKotlinVersion: String by project
 
 android {
     compileSdk = 31
@@ -51,8 +53,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
     }
@@ -87,9 +91,9 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:$composeVersion")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-    implementation ("androidx.compose.material:material:$composeVersion")
-    implementation ("androidx.compose.material:material-icons-extended:$composeVersion")
-    implementation ("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
+    implementation("androidx.compose.material:material-icons-extended:$composeVersion")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
     implementation("androidx.compose.animation:animation:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.runtime:runtime-livedata:$composeVersion")
@@ -114,12 +118,12 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.5.0-beta01")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     // Retrofit & Serialization
     implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation ("com.squareup.retrofit2:converter-moshi:$moshiConverterVersion")
+    implementation("com.squareup.retrofit2:converter-moshi:$moshiConverterVersion")
 
     // Room / Data store
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -138,13 +142,22 @@ dependencies {
     debugImplementation("com.github.chuckerteam.chucker:library:$chuckerVersion")
     debugImplementation("com.squareup.okhttp3:logging-interceptor:$okHttpLoggerVersion")
 
+    // Test
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+
+    androidTestImplementation("io.insert-koin:koin-test:$koinVersion")
+    androidTestImplementation("io.insert-koin:koin-test-junit4:$koinVersion")
+    androidTestImplementation("androidx.navigation:navigation-testing:$navVersion")
+
+
     androidTestImplementation("androidx.test:core:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
     androidTestImplementation("androidx.test:runner:1.4.0")
 
-    implementation("io.arrow-kt:arrow-optics:0.13.2")
-    kapt("io.arrow-kt:arrow-meta:0.13.2")
 }
 
 protobuf {
@@ -155,7 +168,7 @@ protobuf {
     }
     generateProtoTasks {
         all().forEach { task ->
-            task.plugins{
+            task.plugins {
                 create("java") {
                     option("lite")
                 }

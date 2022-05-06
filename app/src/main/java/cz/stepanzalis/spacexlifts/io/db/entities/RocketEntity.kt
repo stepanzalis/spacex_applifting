@@ -29,5 +29,14 @@ data class RocketEntity(
 
     companion object {
         const val TableName = "rocket"
+
+        fun mock() = RocketEntity(
+            id = "id",
+            name = "name",
+            stages = 4,
+            costPerLaunch = .0,
+            firstFlight = 1L,
+            description = "description"
+        )
     }
 }
