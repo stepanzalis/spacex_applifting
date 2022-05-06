@@ -19,10 +19,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.R
-import cz.stepanzalis.spacexlifts.io.common.SpacingM
-import cz.stepanzalis.spacexlifts.io.common.SpacingS
 import cz.stepanzalis.spacexlifts.ui.base.navigation.SpaceXNavigation
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
+import cz.stepanzalis.spacexlifts.ui.theme.spacing
 
 
 @Composable
@@ -34,7 +33,7 @@ fun AppDrawer(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        SpaceXLogo(Modifier.padding(16.dp))
+        SpaceXLogo(Modifier.padding(MaterialTheme.spacing.medium))
         Divider(color = MaterialTheme.colors.onSurface.copy(alpha = .2f))
         DrawerButton(
             icon = ImageVector.vectorResource(id = R.drawable.ic_rocket_launch),
@@ -90,7 +89,11 @@ private fun DrawerButton(
     }
 
     val surfaceModifier = modifier
-        .padding(start = SpacingS, top = SpacingS, end = SpacingS)
+        .padding(
+            start = MaterialTheme.spacing.small,
+            top = MaterialTheme.spacing.small,
+            end = MaterialTheme.spacing.small
+        )
         .fillMaxWidth()
 
     Surface(
@@ -111,7 +114,7 @@ private fun DrawerButton(
                     isSelected = isSelected,
                     tintColor = textIconColor
                 )
-                Spacer(Modifier.width(SpacingM))
+                Spacer(Modifier.width(MaterialTheme.spacing.medium))
                 Text(
                     text = label,
                     style = MaterialTheme.typography.body2,

@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cz.stepanzalis.spacexlifts.io.common.CardElevation
-import cz.stepanzalis.spacexlifts.io.common.SpacingS
 import cz.stepanzalis.spacexlifts.io.models.launches.LaunchFilter
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
+import cz.stepanzalis.spacexlifts.ui.theme.spacing
 
 @Composable
 fun LaunchFilterChip(
@@ -24,7 +24,7 @@ fun LaunchFilterChip(
     onSelectedFilterChanged: (LaunchFilter) -> Unit,
 ) {
     Surface(
-        modifier = Modifier.padding(end = SpacingS),
+        modifier = Modifier.padding(end = MaterialTheme.spacing.small),
         elevation = CardElevation,
         shape = MaterialTheme.shapes.medium,
         color = if (isSelected) MaterialTheme.colors.primary else Color.LightGray,

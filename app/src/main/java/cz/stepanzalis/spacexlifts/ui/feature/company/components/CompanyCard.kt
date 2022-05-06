@@ -2,6 +2,7 @@ package cz.stepanzalis.spacexlifts.ui.feature.company.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,12 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.CardElevation
-import cz.stepanzalis.spacexlifts.io.common.SpacingM
-import cz.stepanzalis.spacexlifts.io.common.SpacingS
 import cz.stepanzalis.spacexlifts.io.models.company.CompanyVo
 import cz.stepanzalis.spacexlifts.ui.theme.LiftingInverted
 import cz.stepanzalis.spacexlifts.ui.theme.Shapes
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
+import cz.stepanzalis.spacexlifts.ui.theme.spacing
 
 @Composable
 fun CompanyCard(
@@ -28,13 +28,13 @@ fun CompanyCard(
         shape = Shapes.large,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = SpacingM),
+            .padding(top = MaterialTheme.spacing.small),
         elevation = CardElevation,
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(SpacingM)
+                .padding(MaterialTheme.spacing.medium)
         ) {
             Column {
                 TitleDescription(
@@ -47,7 +47,7 @@ fun CompanyCard(
                         ),
                     )
                 }
-                Spacer(modifier = Modifier.padding(top = SpacingM))
+                Spacer(modifier = Modifier.padding(top = MaterialTheme.spacing.medium))
                 TitleDescription(
                     title = stringResource(R.string.company_head),
                 ) {
@@ -69,7 +69,7 @@ fun TitleDescription(
 
     Column {
         Text(title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = LiftingInverted)
-        Spacer(modifier = Modifier.padding(top = SpacingS / 2))
+        Spacer(modifier = Modifier.padding(top = MaterialTheme.spacing.extraSmall))
         content()
     }
 }
