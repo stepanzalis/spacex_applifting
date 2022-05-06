@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -15,24 +16,26 @@ import cz.stepanzalis.spacexlifts.io.base.BaseVM
 import cz.stepanzalis.spacexlifts.io.base.Status
 
 @Composable
-fun BaseScreen(
-    status: Status,
+fun StatusScreen(
     vm: BaseVM,
+    status: Status? = null,
     showFullscreenLoading: Boolean = false,
     content: @Composable () -> Unit,
 ) {
 
-    when (status) {
+    val statusValue = status ?: vm.defaultStatus.collectAsState().value
+
+    when (statusValue) {
         is Status.Loading -> {
             if (showFullscreenLoading) {
                 LoadingIndicator()
             }
         }
         is Status.Failure -> {
-            AppDebugToolsConfig.logFailure(status)
+            AppDebugToolsConfig.logFailure(statusValue)
 
             ErrorDialog(
-                failure = status,
+                failure = statusValue,
                 onDismiss = { vm.dismissErrorDialog() },
             )
         }
@@ -54,8 +57,7 @@ fun LoadingIndicator() {
     {
         CircularProgressIndicator(
             color = MaterialTheme.colors.secondary,
-            modifier = Modifier
-                .align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center)
         )
     }
 }
@@ -68,8 +70,17 @@ fun ErrorDialog(
     AlertDialog(
         title = { Text(text = stringResource(R.string.error_dialog_title)) },
         text = { Text(failure.toString()) },
-        confirmButton = {},
         onDismissRequest = { },
+        confirmButton = {
+            Button(
+                onClick = {
+                    // TODO: Think about passing lambda to override this behaviour
+                    onDismiss.invoke()
+                }
+            ) {
+                Text(text = stringResource(id = R.string.dialog_close))
+            }
+        },
         dismissButton = {
             Button(
                 onClick = { onDismiss.invoke() }) {
