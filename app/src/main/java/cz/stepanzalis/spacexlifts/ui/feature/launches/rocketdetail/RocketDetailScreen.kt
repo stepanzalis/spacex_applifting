@@ -8,11 +8,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import cz.stepanzalis.spacexlifts.R
 import cz.stepanzalis.spacexlifts.io.common.AppBarTestTag
 import cz.stepanzalis.spacexlifts.io.common.IconHeight
+import cz.stepanzalis.spacexlifts.io.common.RocketDetailBodyTestTag
 import cz.stepanzalis.spacexlifts.ui.theme.AppBarElevation
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf

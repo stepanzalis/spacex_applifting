@@ -12,6 +12,7 @@ import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import cz.stepanzalis.spacexlifts.io.common.AppBarTestTag
+import cz.stepanzalis.spacexlifts.io.common.RocketDetailBodyTestTag
 import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailScreen
 import cz.stepanzalis.spacexlifts.ui.feature.launches.rocketdetail.RocketDetailVM
 import cz.stepanzalis.spacexlifts.ui.theme.SpaceXLiftsTheme
@@ -41,7 +42,7 @@ class RocketDetailInstrumentedTest : KoinTest {
             SpaceXLiftsTheme {
                 Surface {
                     RocketDetailScreen(
-                        id = "",
+                        id = "5eb87cd9ffd86e000604b32a",
                         navController = navHostController,
                         rocketVM = viewModel,
                         scaffoldState = rememberScaffoldState(),
@@ -54,5 +55,10 @@ class RocketDetailInstrumentedTest : KoinTest {
     @Test
     fun top_bar_shows() {
         composeTestRule.onNodeWithTag(AppBarTestTag).assertIsDisplayed()
+    }
+
+    @Test
+    fun rocket_body_shows() {
+        composeTestRule.onNodeWithTag(RocketDetailBodyTestTag).assertIsDisplayed()
     }
 }
